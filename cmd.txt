@@ -1,0 +1,20 @@
+CUDA_VISIBLE_DEVICES=0 python2 trainval_net.py \
+                   --dataset pascal_voc --net res101 \
+                   --bs 1 --nw 4 \
+                   --lr 1e-3 --lr_decay_step 5 \
+                   --cuda --epochs=7
+
+CUDA_VISIBLE_DEVICES=0,1,2,3 python2 trainval_net.py \
+                   --dataset pascal_voc --net res101 \
+                   --bs 8 --nw 8 \
+                   --lr 5e-3 --lr_decay_step 8 \
+                   --cuda --epochs=10
+
+python trainval_net.py --dataset pascal_voc --net vgg16 \
+                       --bs 24 --nw 8 \
+                       --lr $LEARNING_RATE --lr_decay_step $DECAY_STEP \
+                       --cuda --mGPUs
+
+python test_net.py --dataset pascal_voc --net vgg16 \
+                   --checksession 1 --checkepoch 6 --checkpoint $CHECKPOINT \
+                   --cuda
