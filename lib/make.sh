@@ -2,7 +2,7 @@
 
 # CUDA_PATH=/usr/local/cuda/
 
-export CUDA_PATH=/usr/local/cuda/
+export CUDA_PATH=/usr/local/cuda-9.0/
 #You may also want to ad the following
 #export C_INCLUDE_PATH=/opt/cuda/include
 

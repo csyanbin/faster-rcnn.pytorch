@@ -1,14 +1,27 @@
-python2
-cuda90
-pytorch0.4.0
-make.sh ARC: sm_61 (1080 Ti)
-        python2
-export PATH=$PATH:/usr/local/cuda/bin
+Installations:
+    pytorch with python-UCS4 (sys.maxunicode)
+    cuda90
+    pytorch0.4.0 with pip2 and python2
+    ARC: sm_61 (1080 Ti), 
 
-lib/model/faster_rcnn/faster_rcnn.py
-110         # fix for multi-GPU pytorch0.4.0
-111         if self.training:
-112             rpn_loss_cls = torch.unsqueeze(rpn_loss_cls, 0)
-113             rpn_loss_bbox = torch.unsqueeze(rpn_loss_bbox, 0)
-114             RCNN_loss_cls = torch.unsqueeze(RCNN_loss_cls, 0)
-115             RCNN_loss_bbox = torch.unsqueeze(RCNN_loss_bbox, 0)
+edit lib/make.sh
+    change python --> python2
+    ARC --> sm_61 for 1080Ti
+
+
+Problem: "NVCC not found"
+    export PATH=$PATH:/usr/local/cuda/bin
+
+Problem: "cuda.h no such file or directory"
+    CPATH=/opt/cuda/include ./make.sh
+
+Problem: matplotlib and numpy error
+    reinstall them using new pip
+
+Problem: fix for multi-GPU pytorch0.4.0
+    lib/model/faster_rcnn/faster_rcnn.py
+    111         if self.training:
+    112             rpn_loss_cls = torch.unsqueeze(rpn_loss_cls, 0)
+    113             rpn_loss_bbox = torch.unsqueeze(rpn_loss_bbox, 0)
+    114             RCNN_loss_cls = torch.unsqueeze(RCNN_loss_cls, 0)
+    115             RCNN_loss_bbox = torch.unsqueeze(RCNN_loss_bbox, 0)
